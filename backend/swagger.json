@@ -1,0 +1,464 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "version": "1.0.0",
+        "title": "Testing swagger",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/company/add-company": {
+            "post": {
+                "tags": [
+                    "COMPANY"
+                ],
+                "summary": "Method used to add company by users",
+                "security": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "contentType"
+                                ],
+                                "properties": {
+                                    "language": {
+                                        "type": "string",
+                                        "default": "en"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "default": "Graffersid Web and App Development"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "default": "816, Shekhar Central, Manorama Ganj, AB road New Palasia Indore(MP)"
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "default": "Indore"
+                                    },
+                                    "foundedOn": {
+                                        "type": "string",
+                                        "default": "01-01-2016"
+                                    },
+                                    "companyLogo": {
+                                        "type": "string",
+                                        "default": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/company/get-company-detail": {
+            "get": {
+                "tags": [
+                    "COMPANY"
+                ],
+                "summary": "Method used to get company details by id",
+                "security": [],
+                "parameters": [
+                    {
+                        "name": "language",
+                        "default": "en",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "companyId",
+                        "default": "68780694f4cd28a204412f9b",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/company/get-Companies-list": {
+            "post": {
+                "tags": [
+                    "COMPANY"
+                ],
+                "summary": "Method used to get all company list with filter, paginations and searching",
+                "security": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "contentType"
+                                ],
+                                "properties": {
+                                    "language": {
+                                        "type": "string",
+                                        "default": "en"
+                                    },
+                                    "search": {
+                                        "type": "string",
+                                        "default": "Graffersid Web"
+                                    },
+                                    "page": {
+                                        "type": "number",
+                                        "default": 1
+                                    },
+                                    "perPage": {
+                                        "type": "number",
+                                        "default": 10
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "default": "Indore"
+                                    },
+                                    "sort": {
+                                        "type": "string",
+                                        "default": "name | location | rating | date"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/company/upload-logo": {
+            "post": {
+                "tags": [
+                    "COMPANY"
+                ],
+                "summary": "Upload a logo image",
+                "description": "This API allows users to upload a company logo. The uploaded file is stored on the server, and the file path is saved in the database.",
+                "security": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "companyLogo"
+                                ],
+                                "properties": {
+                                    "companyLogo": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "The image file to upload"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "File uploaded successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "File uploaded successfully"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_id": {
+                                                    "type": "string",
+                                                    "example": "65a9b3f2d12e5c1234abcd56"
+                                                },
+                                                "userName": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "logo": {
+                                                    "type": "string",
+                                                    "example": "logo/companyLogo_1749640798499.jpg"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - No file uploaded",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No file uploaded"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Something went wrong!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reviews/add-review": {
+            "post": {
+                "tags": [
+                    "RATING & REVIEW"
+                ],
+                "summary": "Method used to add rating & review",
+                "security": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "companyId",
+                                    "fullName",
+                                    "subject",
+                                    "rating"
+                                ],
+                                "properties": {
+                                    "language": {
+                                        "type": "string",
+                                        "default": "en"
+                                    },
+                                    "companyId": {
+                                        "type": "string",
+                                        "example": "68780694f4cd28a204412f9b"
+                                    },
+                                    "fullName": {
+                                        "type": "string",
+                                        "example": "Neeraj Mehra"
+                                    },
+                                    "subject": {
+                                        "type": "string",
+                                        "example": "Rating test"
+                                    },
+                                    "rating": {
+                                        "type": "number",
+                                        "example": 5
+                                    },
+                                    "feedback": {
+                                        "type": "string",
+                                        "example": "Good company"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        },
+        "/reviews/get-review-list": {
+            "get": {
+                "tags": [
+                    "RATING & REVIEW"
+                ],
+                "summary": "Method used to get company rating & review list",
+                "security": [],
+                "parameters": [
+                    {
+                        "name": "language",
+                        "default": "en",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "companyId",
+                        "default": "68780694f4cd28a204412f9b",
+                        "in": "query",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
